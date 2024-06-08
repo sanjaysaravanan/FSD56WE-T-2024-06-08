@@ -1,0 +1,32 @@
+[
+  {
+    "product": "Steel Beam",
+    "status": "new",
+    "qty": 10
+  },
+  {
+    "product": "Steel Beam",
+    "status": "urgent",
+    "qty": 20
+  },
+  {
+    "product": "Steel Beam",
+    "status": "urgent",
+    "qty": 30
+  },
+  {
+    "product": "Iron Rod",
+    "status": "new",
+    "qty": 5
+  },
+  {
+    "product": "Iron Rod",
+    "status": "urgent",
+    "qty": 50
+  },
+  {
+    "product": "Iron Rod",
+    "status": "urgent",
+    "qty": 10
+  }
+]

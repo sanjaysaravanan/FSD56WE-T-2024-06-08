@@ -1,0 +1,199 @@
+
+Topics:
+
+  findOne, is same as find but the difference fetches only one item 
+  as a single object
+
+  1. Cursor ( starting point of the return query result ) 
+    map ---> Returns a new array from the Array used for mapping
+    pretty ---> contents in more readable format ( does nothing in latest version  )
+    count ---> return the number of documents as per the query
+    limit ---> limts the contents with the specified number
+    skip ---> skips the contents by specified number
+    sort ---> sorting cursor method takes an object as params
+    Object of feild with asc / desc
+      eg: db.todos.find().sort( { id: -1  } );
+
+    Compound sorting, when sorting is based on more than one feild,
+      eg:
+        db.students.find().sort({ name: 1, marks: -1 });
+
+        sort the name is asc first
+        then sort marks in desc for each of the name
+
+    Count() no params ---> return the count of the filtered records
+    egs: how many todos does userId 1 have,
+      db.todos.find({ userId: 1 }).count(); // ans: 20
+
+    forEach, map ---> same functionality as normal js map, forEach
+    toArray() ---> returns array of records not the cursor( where You can do some more operations )
+
+  2. Aggregation
+    Pipeline with different stages of filter or manipulation ( max, avg, min ... )
+
+    db.<name>.aggregate([
+      stage-1,
+      stage-2
+      ...
+    ]);
+
+    Pipeline --> array of stages
+
+    stage 1 o/p ---> stage2 o/p --> stage 3
+
+    how many todos does userId 1 have,
+
+      step 1:
+        filter the records with userId 1
+      step 2:
+        count the number of records
+      step 3:
+        project the records with preferred fields
+    
+    Group:
+      without grouping, max, min, avg, sum of all the documents
+        1. find the avg marks of all records
+        2. find the maximum mark scored 
+        3. find the minimum mark scored 
+
+      with grouping, each student max, min, avg, sum for each students
+        1. find the avg marks of all records for each student
+        2. find the minimum mark scored for each student
+        3. find the maximum mark scored for each student
+        4. find the total marks for each student
+      
+        Project with Grouping,
+          // grouping with projection
+          db.students.aggregate([
+            {
+              $group: {
+                _id: '$name',
+                avgMark: {
+                  $avg: '$marks'
+                }
+              }
+            },
+            {
+              $project: {
+                _id: 0,
+                name: '$_id',
+                avgMark: 1
+              }
+            }
+          ]);
+
+  filtering:
+
+    find the total for Daniel
+
+    db.<name>.aggregate([
+      { $match: { userId: 1 }},
+      { $group: { _id: '$userId', noOfTodos: { $count: '$id' } }}
+    ]);
+
+    Q1: find the number of todos per userid
+      Step 1:
+        Group by userId then $sum as inner aggregate inside group
+        Note: $count cannot used inside any other aggregate func 
+    Q2: find the total marks for each students
+      Step 1:
+        Group by student name and use $sum: $marks
+
+    Q3: find the avg/percent of each students
+
+    Q4: find all the items which is urgent using aggregate
+
+    Q5: find total urgent qty for each items
+      Step 1:
+        filter the urgent items using $match
+      Step 2:
+        group with item name
+
+    Refer items.json,
+    Output:
+      [
+        {_id: "Steel Beam", totalQty: 50},
+        {_id: "Iron", totalQty: 60},
+      ]
+
+  2.1: inserting records/documents
+
+    insertOne:
+      return the acknowledgement for the operation
+
+    insertMany:
+      return the acknowledgement for the operation
+
+  3. Update / replace
+    1. update the todo title as "Do Workout" for the todo with title 'Go to the gym'
+      db.todos.updateOne(
+        { title: 'Go to the gym' },
+        { $set: { title: 'Do workout'} }
+      );
+    2. userId 1 has completed all the todos. 
+    for userId 1 set the completed to be true 
+      db.todos.updateMany(
+        { userId: 1 },
+        { $set: { completed:  true } }
+      );
+
+    3. for id 21, replace the document with 
+    { id: 21, userId: 2, title: 'Do Home Work', completed: true }
+
+    db.todos.replaceOne(
+      {id: 21},
+      { id: 21, userId: 2, title: 'Do Home Work', completed: true }
+    );
+
+    upsert option:
+      db.todos.updateOne(
+        { id: 201 },
+        { $set: { title: 'Do workout'} },
+        { upsert: true }
+      );
+
+  4. Delete
+
+    1. deleteOne
+
+      delete the id 201
+      db.todos.deleteOne({
+        id: 201
+      });
+
+    2. deleteMany
+
+      userId 3 has deleted his account, so we need to delete all his todos
+      db.todos.deleteMany({
+        userId: 3
+      });
+
+Task:
+
+  1. Day - 32: https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit
+
+  Step1: Read the collections, & questions, create sample data for all the collections
+
+  Step2: approach each questions
+
+  Sample Query:
+
+    2023-10-10
+
+  1. Find all the topics and tasks which are thought in the month of October
+    db.topics.find( { date: { $regex: "2023-10" } } );
+    db.tasks.find( { date: { $regex: "2023-10" } } );
+
+  
+  3. company drives and students
+
+    const drives = db.drives.find({}).toArray(); // all the drives with filter
+
+    const emails = [];
+
+    drives.forEach((o) => o.students.forEach((e) => emails.push(e))); // collect all the student emails from drives
+
+    const appeardStudents = db.users.find({ email: { $in: emails } });
+
+
+  

@@ -1,0 +1,62 @@
+[
+  {
+    "userId": 1,
+    "title": "Complete assignment",
+    "dueDate": "2023-12-01",
+    "isCompleted": false
+  },
+  {
+    "userId": 2,
+    "title": "Read a book",
+    "dueDate": "2023-11-30",
+    "isCompleted": true
+  },
+  {
+    "userId": 1,
+    "title": "Go to the gym",
+    "dueDate": "2023-12-02",
+    "isCompleted": false
+  },
+  {
+    "userId": 3,
+    "title": "Write a blog post",
+    "dueDate": "2023-12-05",
+    "isCompleted": false
+  },
+  {
+    "userId": 2,
+    "title": "Prepare for exam",
+    "dueDate": "2023-12-10",
+    "isCompleted": false
+  },
+  {
+    "userId": 3,
+    "title": "Learn a new language",
+    "dueDate": "2023-12-15",
+    "isCompleted": true
+  },
+  {
+    "userId": 1,
+    "title": "Complete coding project",
+    "dueDate": "2023-12-08",
+    "isCompleted": false
+  },
+  {
+    "userId": 2,
+    "title": "Attend webinar",
+    "dueDate": "2023-12-03",
+    "isCompleted": true
+  },
+  {
+    "userId": 3,
+    "title": "Visit the museum",
+    "dueDate": "2023-12-20",
+    "isCompleted": false
+  },
+  {
+    "userId": 1,
+    "title": "Buy groceries",
+    "dueDate": "2023-12-05",
+    "isCompleted": true
+  }
+]

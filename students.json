@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Daniel",
+    "subject": "Maths",
+    "marks": 99
+  },
+  {
+    "name": "Daniel",
+    "subject": "English",
+    "marks": 78
+  },
+  {
+    "name": "Daniel",
+    "subject": "Science",
+    "marks": 90
+  },
+  {
+    "name": "Sam",
+    "subject": "Maths",
+    "marks": 95
+  },
+  {
+    "name": "Sam",
+    "subject": "English",
+    "marks": 86
+  },
+  {
+    "name": "Sam",
+    "subject": "Science",
+    "marks": 76
+  },
+  {
+    "name": "Badri",
+    "subject": "Maths",
+    "marks": 93
+  },
+  {
+    "name": "Badri",
+    "subject": "English",
+    "marks": 80
+  },
+  {
+    "name": "Badri",
+    "subject": "Science",
+    "marks": 87
+  }
+]
